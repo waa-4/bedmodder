@@ -1,28 +1,27 @@
-# BedModder — prototype 0.1
+# BedModder v0.2
 
-Free, browser-based Minecraft Bedrock add-on maker. No sign-in or server required.
+Free, locally saved Minecraft Bedrock add-on editor. No account, backend, or internet is required. Unzip the folder and open `index.html`, or upload all files to GitHub Pages.
 
-## Run
+## What changed from v0.1
 
-Upload `index.html`, `style.css`, and `app.js` to a GitHub Pages repository, or open `index.html` in a browser. An internet connection is required to load JSZip from cdnjs for `.mcaddon` exporting. You can host JSZip locally later for fully offline use.
+- **Custom block editor:** full-cube blocks with a selected texture, mining hardness, friction, light emission, and creative inventory access.
+- **Function editor:** create `.mcfunction` files with multiple commands. Type `/fi` at the start of a line and press Tab to complete `fill`; other common commands are suggested too. Any leading `/` is stripped during export.
+- **Recipe editor:** crafting-table shaped and shapeless recipes with custom results and ingredients.
+- **Loot table editor:** weighted entries and counts, exported as `loot_tables/bedmodder/<id>.json` (usable by other files/commands, but not automatically connected to mobs or blocks).
+- **Language editor:** change exported US-English names for blocks and items.
+- **Project search:** search items, blocks, functions, recipes, and loot tables.
+- **Offline export:** JSZip is bundled locally; no CDN needed.
+- **v0.1 compatibility:** existing browser saves use the same localStorage key, with new fields added. `.bedmodder` project backups can also be imported.
+- Retains all earlier item and pixel-art features.
 
-## Included
+## Running and updating
 
-- Project settings: name, namespace, description, version.
-- Custom item editor: identifier, display name, stack size, creative menu, tool display, icon selection.
-- 16×16 transparent pixel editor; PNG import/export.
-- Local project persistence via localStorage; `.bedmodder` backup and restore.
-- Basic project validation.
-- `.mcaddon` export with linked behavior and resource packs, manifests, item definitions, and PNGs.
+Extract everything into one folder. Open `index.html` in a browser. If you are replacing an existing website, **keep all five files together**: `index.html`, `style.css`, `app.js`, `addon-v02.js`, `jszip.min.js`. Download a `.bedmodder` project backup before updating. Saving is browser-profile-local.
 
-## Scope
+## Supported output
 
-This is a small proof of concept, not yet the full BedModder editor. No blocks, entities, command functions, Scratch logic, multiplayer, or complex scripts are implemented. Editing an imported `.mcaddon` is not implemented. Test exports in a disposable Minecraft Bedrock world. Real game behavior has not been verified here.
+Behavior and resource pack manifests, Bedrock item and basic block definitions, textures, recipes, functions, simple loot tables, and English display names. Exports a `.mcaddon`. For function use, run `/function <path>` in game. Loot tables must be called/referenced from other content to have any effect.
 
-## Security and storage
+## Boundaries
 
-Projects are saved only in the current browser profile. Browser-data clearing removes those saves; download a `.bedmodder` backup regularly. The app makes no account or analytics requests. The third-party JSZip CDN is used solely to load the ZIP generator.
-
-## Minecraft format
-
-Manifest format 2, items format 1.21.30, resource-pack item atlas, PNG icon assets. The resource pack is declared as a behavior-pack dependency. The selected minimum engine version is exported in pack manifests. Validate and test for each target Bedrock build.
+This is v0.2, not a complete engine. Script API, biome editing, entities, advanced blocks, custom block geometry, visual Scratch blocks, version-specific migration, and importing existing `.mcaddon` files are planned, **not included**. Validate exported add-ons in a disposable Minecraft Bedrock world. The JavaScript passes syntax checks, but browser interaction and in-game validation are still needed. Never test first on a valuable world.
